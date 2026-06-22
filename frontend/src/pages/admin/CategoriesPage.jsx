@@ -92,10 +92,10 @@ export default function CategoriesPage() {
               Show archived
             </label>
             <Link
-              to="/admin/products/new"
+              to="/admin/products"
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 touch-manipulation text-sm"
             >
-              + New Product
+              Products
             </Link>
             <button
               onClick={openCreate}
