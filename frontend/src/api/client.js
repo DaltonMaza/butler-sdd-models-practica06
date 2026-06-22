@@ -47,3 +47,10 @@ export function archiveCategory(id) {
     method: 'PATCH',
   });
 }
+
+export function createProduct(data) {
+  return request('/products', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}

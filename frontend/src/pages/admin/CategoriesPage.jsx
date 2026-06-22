@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { getCategories, deleteCategory, archiveCategory } from '../../api/client.js';
 import { CategoryForm } from '../../components/admin/CategoryForm.jsx';
 import { ConfirmDialog } from '../../components/admin/ConfirmDialog.jsx';
@@ -90,6 +91,12 @@ export default function CategoriesPage() {
               />
               Show archived
             </label>
+            <Link
+              to="/admin/products/new"
+              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 touch-manipulation text-sm"
+            >
+              + New Product
+            </Link>
             <button
               onClick={openCreate}
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 touch-manipulation"
