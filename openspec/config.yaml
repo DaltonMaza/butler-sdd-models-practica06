@@ -1,0 +1,65 @@
+schema: spec-driven
+
+# Contexto del Proyecto Butler
+# Este contexto guía a la IA en la generación de requerimientos, arquitectura y tareas de desarrollo.
+context: |
+  Butler:
+  Sistema integral de software diseñado para automatizar los procesos de compra, gestión de pedidos y control de inventario en el Bar de la Universidad Nacional de Loja (UNL). El sistema busca eliminar los cuellos de botella operativos durante las horas pico de congestión estudiantil.
+
+  Dominio y Reglas de Negocio Críticas:
+  - Estudiantes (Usuarios Finales): Acceden a un menú digital visual actualizado en tiempo real, realizan pedidos rápidos y efectúan pagos digitales seguros.
+  - Personal de Cocina (Operadores - KDS): Utilizan una pantalla interactiva (Kitchen Display System) optimizada para lectura a distancia y control táctil ágil, reduciendo el papeleo físico.
+  - Cajero: Registra cobros físicos (efectivo), valida transacciones digitales y supervisa el flujo de caja diario de manera automatizada.
+  - Control de Pedidos en Cocina: Un pedido solo debe aparecer en la cola del KDS si su estado de pago ha sido aprobado/validado (por el cajero o pasarela de pagos).
+  - Gestión de Inventario en Tiempo Real: Reducción automatizada del stock tras la confirmación del pago. Alerta automática ante ingredientes o productos agotados para evitar la sobreventa.
+  - Alta Concurrencia y Sincronización: El sistema debe soportar picos masivos de demanda en intervalos cortos (entre horas de clase) utilizando sincronización en tiempo real.
+
+  Arquitectura y Stack Tecnológico:
+  - Backend: Node / Express. 
+  - Frontend: React + Tailwind CSS
+  - Base de Datos: NeonSQL (PostgreSQL en la nube) Relacional
+  - Tiempo real: Socket.io 
+
+  Referencia del Sistema:
+  - Interfaces táctiles KDS de alta legibilidad, sistemas POS locales robustos e integraciones con pasarelas de pago locales en Ecuador (Kushki).
+
+  Documentación y recursos:
+  - PRD DEL PROYECTO: [Enlace al PRD detallado con historias de usuario, criterios de aceptación y flujos de usuario específicos para cada rol]
+
+  PROCESO SDD OBLIGATORIO:
+    Para toda nueva funcionalidad o cambio:
+
+    1. Ejecutar proceso de descubrimiento de requisitos.
+    2. Utilizar grill-me skill para aclarar requisitos.
+    3. Realizar al menos 5 preguntas de aclaración cuando existan dudas.
+    4. No generar spec.md sin aprobación explícita del proposal.
+    5. No generar design.md sin aprobación explícita del spec.
+    6. No generar tasks.md sin aprobación explícita del design.
+    7. Detenerse después de cada artefacto y solicitar validación del usuario.
+
+# Reglas de Calidad para el Modelado, Diseño y Desarrollo del Ciclo de Vida
+rules:
+  proposal:
+    - Must use grill-me skill
+    - Must ask clarification questions before generating proposal
+    - Must wait for user approval before finalizing proposal
+    - Keep proposals under 500 words
+    - Always include a "Non-goals" section (establecer límites claros de qué no abordará la funcionalidad para mitigar riesgos en picos de demanda)
+  specs:
+    - Must use gherkin-authoring skill (especificaciones escritas en formato BDD para un entendimiento claro entre el equipo de computación de la UNL y los stakeholders del bar)
+    - Must wait for proposal approval
+    - Must not generate design automatically
+  designs:
+    - Must wait for spec approval
+    - Must use c4-architecture skill (esencial para modelar la arquitectura de nodos paralelos y WebSockets de Butler)
+    # - Must use architectural-decision-records skill (documentar por qué se eligen WebSockets sobre HTTP Polling u otras alternativas de backend)
+    - Must use uml skill (incluir diagramas de secuencia UML y de procesos BPMN 2.0 para modelar la interacción entre Estudiante, Cajero y KDS)
+  tasks:
+    - Must wait for design approval
+    - Descomponer en tareas de máximo 30 minutos de implementación para asegurar despliegues continuos rápidos.
+    - Separar explícitamente tareas de backend (Java/Jakarta EE, servicios REST/WebSockets) y frontend (Flutter/Dart, vistas KDS/POS) cuando el cambio sea transversal.
+    - Incluir obligatoriamente tareas de migración de base de datos (DDL/DML) si se modifica el modelo de datos (ej., nuevos estados de pedido o inventario).
+    - Incluir tarea de actualización de pruebas de integración con TestContainers en el backend para validar la persistencia.
+    - Incluir tarea de actualización de pruebas unitarias de BLoC/Cubit si se altera el flujo de estados en la app Flutter.
+    - Verificar estrictamente que ninguna tarea que afecte al dominio rompa las reglas de negocio críticas (ej., asegurar que un pedido no pagado nunca llegue a la cola de preparación).
+    - Agregar tarea de verificación de diseño responsivo y adaptabilidad táctil para la UI de KDS y POS en dispositivos tablets y pantallas de cocina.
