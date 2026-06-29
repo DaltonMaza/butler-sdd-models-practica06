@@ -24,7 +24,7 @@ context: |
   - Interfaces táctiles KDS de alta legibilidad, sistemas POS locales robustos e integraciones con pasarelas de pago locales en Ecuador (Kushki).
 
   Documentación y recursos:
-  - PRD DEL PROYECTO: [Enlace al PRD detallado con historias de usuario, criterios de aceptación y flujos de usuario específicos para cada rol]
+  - PRD DEL PROYECTO: /docs/prd-butler.md
 
   PROCESO SDD OBLIGATORIO:
     Para toda nueva funcionalidad o cambio:
